@@ -18,7 +18,20 @@ const Page = () => {
 
             <main className="page-content">
                 <h1>My  <u>Top 3</u> favorite books</h1>
-                <p>The chill zone is where all the things are copacetic. Think about all the unchill things in your life. Think about them, just for a moment. And now? Just forget about 'em. Why? Because, my friend: you've just entered the <em>Chill Zone</em>. The following passages of text are pulled from this <a href="https://www.wikihow.com/Be-Chill">wikiHow article</a>.</p>
+                <p>The chill zone is where all the things are copacetic. Think about all the unchill things in your life.  <em>Chill Zone</em>. The following passages of text are pulled from this <a href="https://www.wikihow.com/Be-Chill">wikiHow article</a>.</p>
+                <div className="m-auto flex flex-row h-fit justify-between items-center mt-0 md:w-[70%]  mt-16">
+                    <div className="w-fit flex flex-col items-center">
+                        <img src="/alien.svg" alt="alien-icon" width={150} />
+                        <span>
+                            Fiction
+                        </span>
+                    </div>
+
+                    <div className="w-fit flex flex-col items-center">
+                        <img src="/coffee.svg" alt="alien-icon" width={150} />
+                        Non-Fiction
+                    </div>
+                </div>
 
                 <section className="page-content__section" data-bg-color="#17202A">
                     <h2>Welcome to the chill zone</h2>

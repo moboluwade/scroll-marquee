@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --color-background: #151818;
   --color-text: whitesmoke;
@@ -28,7 +32,7 @@ body {
   padding: 4rem;
   margin: 8rem auto;
 
-  * + * {
+  * + p {
     margin-top: 2.5rem;
   }
 
