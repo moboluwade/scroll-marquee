@@ -1,8 +1,31 @@
+import { useMotionValueEvent, useScroll, useSpring, motion, useVelocity, useTransform } from "framer-motion"
 import PageSection from "./PageSection"
+import { useEffect, useMemo } from "react"
 
 const Page = () => {
     // object to store individul header refs
+    const { scrollY } = useScroll()
 
+    const scrollVelocity = useVelocity(scrollY);
+    const smoothVelocity = useSpring(scrollVelocity, {
+        damping: 50,
+        stiffness: 400,
+    });
+    const velocityFactor = useTransform(smoothVelocity, [0, 100], [0, 5], {
+        clamp: true,
+    });
+
+
+    useMotionValueEvent(velocityFactor, "change", (latest) => {
+        console.log(latest)
+    })
+    // use this value to shift the words on the marquee, time to sleep please.
+
+    useEffect(() => {
+        console.log(velocityFactor)
+    }, [velocityFactor])
+
+    // Convert to unknown first, then to number
 
     const topics = [
         {
@@ -69,6 +92,10 @@ const Page = () => {
     return (
 
         <div>
+            {/* <motion.div
+                className="fixed top-0 z-50 w-full h-3 bg-red-800 left-1">
+            </motion.div> */}
+
             <div className="marquee-container">
                 <div className="marquee marquee--top">
                     <div></div>
@@ -88,14 +115,14 @@ const Page = () => {
                 <h1>My  <u>Top 3</u> favorite books</h1>
                 <p>The chill zone is where all the things are copacetic. Think about all the unchill things in your life.  <em>Chill Zone</em>. The following passages of text are pulled from this <a href="https://www.wikihow.com/Be-Chill">wikiHow article</a>.</p>
                 <div className="m-auto flex flex-row h-fit justify-between items-center md:w-[70%]  mt-16">
-                    <div className="w-fit flex flex-col items-center">
+                    <div className="flex flex-col items-center w-fit">
                         <img src="/alien.svg" alt="alien-icon" width={150} />
                         <span>
                             Fiction
                         </span>
                     </div>
 
-                    <div className="w-fit flex flex-col items-center">
+                    <div className="flex flex-col items-center w-fit">
                         <img src="/coffee.svg" alt="alien-icon" width={150} />
                         Non-Fiction
                     </div>
@@ -108,7 +135,7 @@ const Page = () => {
                     )
                 })}
             </main>
-        </div>
+        </div >
     )
 }
 
