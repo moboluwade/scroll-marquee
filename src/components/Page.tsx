@@ -1,10 +1,11 @@
 import { useMotionValueEvent, useScroll, useSpring, motion, useVelocity, useTransform } from "framer-motion"
 import PageSection from "./PageSection"
-import { useEffect, useMemo } from "react"
+import { useEffect, useState } from "react"
 
 const Page = () => {
     // object to store individul header refs
     const { scrollY } = useScroll()
+    const [marquee, setMarquee] = useState("")
 
     const scrollVelocity = useVelocity(scrollY);
     const smoothVelocity = useSpring(scrollVelocity, {
@@ -89,6 +90,21 @@ const Page = () => {
         },
     ]
 
+    // const marqueeVariants = {
+    //     animate: {
+    //         x: [0, -1035],
+    //         transition: {
+    //             x: {
+    //                 repeat: Infinity,
+    //                 repeatType: "loop",
+    //                 duration: 8,
+    //                 ease: "linear",
+    //             },
+    //         },
+    //     },
+    // };
+
+
     return (
 
         <div>
@@ -97,17 +113,20 @@ const Page = () => {
             </motion.div> */}
 
             <div className="marquee-container">
-                <div className="marquee marquee--top">
-                    <div></div>
-                </div>
+                <motion.div
+                    // variants={marqueeVariants}
+                    // animate="animate"
+                    className="marquee marquee--top">
+                    <div>{marquee}</div>
+                </motion.div>
                 <div className="marquee marquee--right">
-                    <div></div>
+                    <div>{marquee}</div>
                 </div>
                 <div className="marquee marquee--bottom">
-                    <div></div>
+                    <div>{marquee}</div>
                 </div>
                 <div className="marquee marquee--left">
-                    <div></div>
+                    <div>{marquee}</div>
                 </div>
             </div>
 
@@ -131,7 +150,7 @@ const Page = () => {
                 {topics.map((topic) => {
 
                     return (
-                        <PageSection key={topic.id} topic={topic} />
+                        <PageSection key={topic.id} topic={topic} setMarquee={setMarquee} />
                     )
                 })}
             </main>
