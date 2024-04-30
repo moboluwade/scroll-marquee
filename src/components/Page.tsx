@@ -1,26 +1,50 @@
-import { useMotionValueEvent, useScroll, useSpring, motion, useVelocity, useTransform } from "framer-motion"
+import { useScroll, useSpring, motion, useVelocity, useTransform, useMotionValue, useAnimationFrame } from "framer-motion"
 import PageSection from "./PageSection"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { wrap } from "@motionone/utils";
 
 const Page = () => {
     // object to store individul header refs
     const { scrollY } = useScroll()
     const [marquee, setMarquee] = useState("")
 
+
+    const baseX = useMotionValue(0);
     const scrollVelocity = useVelocity(scrollY);
     const smoothVelocity = useSpring(scrollVelocity, {
         damping: 50,
         stiffness: 400,
     });
     const velocityFactor = useTransform(smoothVelocity, [0, 100], [0, 5], {
-        clamp: true,
+        clamp: false,
     });
 
+
+    const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
+
+    const directionFactor = useRef<number>(1);
+    useAnimationFrame((t, delta) => {
+        let moveBy = directionFactor.current * -1 * (delta / 3000);
+        /**
+         * This is what changes the direction of the scroll once we
+         * switch scrolling directions.
+         */
+        if (velocityFactor.get() < 0) {
+            directionFactor.current = -1;
+        } else if (velocityFactor.get() > 0) {
+            directionFactor.current = 1;
+        }
+
+
+        moveBy += directionFactor.current * moveBy * velocityFactor.get();
+
+        baseX.set(baseX.get() + moveBy);
+    });
 
     // useMotionValueEvent(velocityFactor, "change", (latest) => {
     //     console.log(latest)
     // })
-    // use this value to shift the words on the marquee, time to sleep please.
+    // use this value to shift the words on the marquee, time to sleep please 😴.
 
     useEffect(() => {
         console.log(velocityFactor)
@@ -88,44 +112,32 @@ const Page = () => {
         },
     ]
 
-    const marqueeVariants = {
-        animate: {
-            x: [0, -1035],
-            transition: {
-                x: {
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    duration: 8,
-                    ease: "linear",
-                },
-            },
-        },
-    };
-
-
     return (
 
         <div>
-            {/* <motion.div
-                className="fixed top-0 z-50 w-full h-3 bg-red-800 left-1">
-            </motion.div> */}
-
             <div className="marquee-container">
                 <motion.div
-                    variants={marqueeVariants}
-                    initial="hidden"
-                    animate="show"
+                    style={{ x }}
                     className="marquee marquee--top">
                     {marquee}
                 </motion.div>
                 <div className="marquee marquee--right">
-                    <div>{marquee}</div>
+                    <motion.div
+                        style={{ x }}>
+                        {marquee}
+                    </motion.div>
                 </div>
                 <div className="marquee marquee--bottom">
-                    <div>{marquee}</div>
+                    <motion.div
+                        style={{ x }}>
+                        {marquee}
+                    </motion.div>
                 </div>
                 <div className="marquee marquee--left">
-                    <div>{marquee}</div>
+                    <motion.div
+                        style={{ x }}>
+                        {marquee}
+                    </motion.div>
                 </div>
             </div>
 
