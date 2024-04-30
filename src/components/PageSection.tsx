@@ -1,5 +1,5 @@
 import { useInView } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Topic {
     id: number;
@@ -13,14 +13,22 @@ interface Topic {
 const PageSection = ({ topic, setMarquee }: { topic: Topic, setMarquee: React.Dispatch<React.SetStateAction<string>> }) => {
     const ref = useRef(null)
     const isInView = useInView(ref)
-
+    const [isActive, setIsActive] = useState(false)
 
     useEffect(() => {
-        isInView && console.log(topic.heading + ': ' + isInView)
+        // run, when section is in view
+        if (isInView) {
+            // sets the marquee
+            setMarquee(setMarqueeText(topic.heading));
+            setIsActive(true);
+            console.log(topic.heading, 'is in view')
 
-        // sets the marquee
-        isInView && setMarquee(setMarqueeText(topic.heading))
-    }, [isInView, topic, setMarquee])
+            // Set the background color var of the body element when the component mounts
+            document.documentElement.style.setProperty("--color-background", topic.color)
+        } else {
+            setIsActive(false); // Set isActive to false when section is not in view
+        }
+    }, [isInView, topic, setMarquee, setIsActive])
 
     const setMarqueeText = (string: string | undefined) => {
         let text = ""
@@ -31,7 +39,7 @@ const PageSection = ({ topic, setMarquee }: { topic: Topic, setMarquee: React.Di
     }
 
     return (
-        <section className="page-content__section" data-bg-color={topic.color}>
+        <section className={`page-content__section ${isActive && `active`}`} >
             <h2 ref={ref}>{topic.heading}</h2>
 
             {topic.paragraphs.map((paragraph, index) => {

@@ -17,16 +17,14 @@ const Page = () => {
     });
 
 
-    useMotionValueEvent(velocityFactor, "change", (latest) => {
-        console.log(latest)
-    })
+    // useMotionValueEvent(velocityFactor, "change", (latest) => {
+    //     console.log(latest)
+    // })
     // use this value to shift the words on the marquee, time to sleep please.
 
     useEffect(() => {
         console.log(velocityFactor)
     }, [velocityFactor])
-
-    // Convert to unknown first, then to number
 
     const topics = [
         {
@@ -90,19 +88,19 @@ const Page = () => {
         },
     ]
 
-    // const marqueeVariants = {
-    //     animate: {
-    //         x: [0, -1035],
-    //         transition: {
-    //             x: {
-    //                 repeat: Infinity,
-    //                 repeatType: "loop",
-    //                 duration: 8,
-    //                 ease: "linear",
-    //             },
-    //         },
-    //     },
-    // };
+    const marqueeVariants = {
+        animate: {
+            x: [0, -1035],
+            transition: {
+                x: {
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    duration: 8,
+                    ease: "linear",
+                },
+            },
+        },
+    };
 
 
     return (
@@ -114,10 +112,11 @@ const Page = () => {
 
             <div className="marquee-container">
                 <motion.div
-                    // variants={marqueeVariants}
-                    // animate="animate"
+                    variants={marqueeVariants}
+                    initial="hidden"
+                    animate="show"
                     className="marquee marquee--top">
-                    <div>{marquee}</div>
+                    {marquee}
                 </motion.div>
                 <div className="marquee marquee--right">
                     <div>{marquee}</div>
