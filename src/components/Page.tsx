@@ -8,7 +8,7 @@ const Page = () => {
     const { scrollY } = useScroll()
     const [marquee, setMarquee] = useState("")
 
-
+    
     const baseX = useMotionValue(0);
     const scrollVelocity = useVelocity(scrollY);
     const smoothVelocity = useSpring(scrollVelocity, {
@@ -46,9 +46,9 @@ const Page = () => {
     // })
     // use this value to shift the words on the marquee, time to sleep please 😴.
 
-    useEffect(() => {
-        console.log(velocityFactor)
-    }, [velocityFactor])
+    // useEffect(() => {
+    //     console.log(velocityFactor)
+    // }, [velocityFactor])
 
     const topics = [
         {

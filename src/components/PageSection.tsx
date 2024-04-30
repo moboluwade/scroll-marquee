@@ -21,7 +21,8 @@ const PageSection = ({ topic, setMarquee }: { topic: Topic, setMarquee: React.Di
             // sets the marquee
             setMarquee(setMarqueeText(topic.heading));
             setIsActive(true);
-            console.log(topic.heading, 'is in view')
+            // un-comment to discover bug- console logs twice.
+            // console.log(topic.heading, 'is in view')
 
             // Set the background color var of the body element when the component mounts
             document.documentElement.style.setProperty("--color-background", topic.color)
@@ -43,7 +44,6 @@ const PageSection = ({ topic, setMarquee }: { topic: Topic, setMarquee: React.Di
             <h2 ref={ref}>{topic.heading}</h2>
 
             {topic.paragraphs.map((paragraph, index) => {
-
                 return (
                     <p key={index}>{paragraph}</p>
                 )
