@@ -1,6 +1,6 @@
 import { useScroll, useSpring, motion, useVelocity, useTransform, useMotionValue, useAnimationFrame } from "framer-motion"
 import PageSection from "./PageSection"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { wrap } from "@motionone/utils";
 
 const Page = () => {
