@@ -23,7 +23,8 @@ const Page = () => {
     const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
 
     const directionFactor = useRef<number>(1);
-    useAnimationFrame((t, delta) => {
+    useAnimationFrame((_t, delta) => {
+        // variable t - duration after first frame is unused
         let moveBy = directionFactor.current * -1 * (delta / 3000);
         /**
          * This is what changes the direction of the scroll once we
