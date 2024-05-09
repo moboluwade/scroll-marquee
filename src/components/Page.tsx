@@ -8,7 +8,7 @@ const Page = () => {
     const { scrollY } = useScroll()
     const [marquee, setMarquee] = useState("")
 
-    
+
     const baseX = useMotionValue(0);
     const scrollVelocity = useVelocity(scrollY);
     const smoothVelocity = useSpring(scrollVelocity, {
@@ -143,21 +143,8 @@ const Page = () => {
             </div>
 
             <main className="page-content">
-                <h1>My  <u>Top 3</u> favorite books</h1>
-                <p>The chill zone is where all the things are copacetic. Think about all the unchill things in your life.  <em>Chill Zone</em>. The following passages of text are pulled from this <a href="https://www.wikihow.com/Be-Chill">wikiHow article</a>.</p>
-                <div className="m-auto flex flex-row h-fit justify-between items-center md:w-[70%]  mt-16">
-                    <div className="flex flex-col items-center w-fit">
-                        <img src="/alien.svg" alt="alien-icon" width={150} />
-                        <span>
-                            Fiction
-                        </span>
-                    </div>
-
-                    <div className="flex flex-col items-center w-fit">
-                        <img src="/coffee.svg" alt="alien-icon" width={150} />
-                        Non-Fiction
-                    </div>
-                </div>
+                <h1>You'll <u>never</u> believe how chill it is!</h1>
+                <p>The chill zone is where all the things are copacetic. Think about all the unchill things in your life. Think about them, just for a moment. And now? Just forget about 'em. Why? Because, my friend: you've just entered the <em>Chill Zone</em>. The following passages of text are pulled from this <a href="https://www.wikihow.com/Be-Chill">wikiHow article</a>.</p>
 
                 {topics.map((topic) => {
 
@@ -165,7 +152,9 @@ const Page = () => {
                         <PageSection key={topic.id} topic={topic} setMarquee={setMarquee} />
                     )
                 })}
+                <div className="mt-24 text-white "><span className="opacity-35">Attribution: </span> <a className="opacity-35 hover:opacity-75" target="_blank" rel="noreferrer" href="https://codepen.io/hexagoncircle/pen/xxwBLMy?editors=1000">codepen challenge resource in GSAP</a></div>
             </main>
+
         </div >
     )
 }
